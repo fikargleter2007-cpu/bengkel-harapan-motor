@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bengkel Harapan Motor – Servis Motor Cepat, Jelas, Transparan</title>
+<meta name="description" content="Booking servis motor online, estimasi biaya, cek status servis, dan pengingat ganti oli.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#beranda" class="logo">Bengkel <span>HARAPAN MOTOR</span></a>
+    <button class="burger" id="burger" aria-label="Buka menu">☰</button>
+    <nav>
+      <ul id="menu">
+        <li><a href="#layanan">Layanan</a></li>
+        <li><a href="#booking">Booking</a></li>
+        <li><a href="#estimasi">Estimasi</a></li>
+        <li><a href="#status">Cek Status</a></li>
+        <li><a href="#pengingat">Pengingat Oli</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+        <li class="nav-admin"><a href="#admin" id="linkAdmin">Login Admin</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="beranda">
+  <div class="container grid">
+    <div>
+      <p class="eyebrow">Servis motor tanpa antre berlama-lama</p>
+      <h1>Servis motor <em>jelas biayanya</em>, jelas jadwalnya.</h1>
+      <p>Booking servis dari rumah, hitung estimasi biaya sebelum datang, dan cek progres motor Anda kapan saja — tanpa perlu telepon berulang kali.</p>
+      <div class="cta">
+        <a href="#booking" class="btn">Booking Servis Sekarang</a>
+        <a href="#estimasi" class="btn ghost">Hitung Estimasi Biaya</a>
+      </div>
+    </div>
+    <aside class="status-card">
+      <h3>Status Bengkel Hari Ini</h3>
+      <span class="badge closed" id="openBadge">Memeriksa…</span>
+      <div class="hours" id="hours"></div>
+    </aside>
+  </div>
+</section>
+
+<!-- KEUNGGULAN -->
+<section>
+  <div class="container">
+    <p class="eyebrow">Kenapa kami</p>
+    <h2>Masalah servis yang kami selesaikan</h2>
+    <p class="sub">Website ini dibuat untuk menjawab keluhan yang paling sering dialami pemilik motor.</p>
+    <div class="cards">
+      <div class="card"><div class="ico">💰</div><h3>Biaya transparan</h3><p>Daftar harga dan kalkulator estimasi tersedia sebelum motor masuk bengkel.</p></div>
+      <div class="card"><div class="ico">⏱️</div><h3>Booking, tanpa antre lama</h3><p>Pilih tanggal &amp; jam servis, pesan terkirim langsung ke WhatsApp bengkel.</p></div>
+      <div class="card"><div class="ico">📍</div><h3>Status bisa dipantau</h3><p>Masukkan nomor plat untuk melihat motor sedang dicek, dikerjakan, atau siap diambil.</p></div>
+      <div class="card"><div class="ico">🔔</div><h3>Pengingat servis</h3><p>Hitung kapan waktunya ganti oli berikutnya agar mesin tetap awet.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LAYANAN -->
+<section id="layanan" style="background:#fff">
+  <div class="container">
+    <p class="eyebrow">Layanan &amp; harga</p>
+    <h2>Daftar layanan bengkel</h2>
+    <p class="sub">Cari layanan atau filter berdasarkan kategori. Harga adalah estimasi jasa, belum termasuk sparepart.</p>
+    <div class="tools">
+      <input type="search" id="cari" placeholder="Cari layanan, misal: oli, rem, CVT…" aria-label="Cari layanan">
+      <select id="kategori" aria-label="Filter kategori">
+        <option value="semua">Semua kategori</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Layanan</th><th>Kategori</th><th>Estimasi jasa</th><th>Durasi</th></tr></thead>
+        <tbody id="tbodyLayanan"></tbody>
+      </table>
+    </div>
+    <p class="note" id="emptyNote" hidden>Layanan tidak ditemukan. Coba kata kunci lain.</p>
+    <p class="note"></p>
+  </div>
+</section>
+
+<!-- BOOKING + ESTIMASI -->
+<section id="booking">
+  <div class="container two">
+    <div class="panel">
+      <p class="eyebrow">Booking online</p>
+      <h3>Pesan jadwal servis</h3>
+      <p class="sub">Isi formulir, lalu pesan otomatis terbuka di WhatsApp bengkel.</p>
+      <form id="formBooking" novalidate>
+        <div class="field">
+          <label for="nama">Nama lengkap</label>
+          <input id="nama" type="text" placeholder="Nama Anda" required>
+          <div class="err-msg">Nama wajib diisi.</div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="hp">No. WhatsApp</label>
+            <input id="hp" type="tel" placeholder="08xxxxxxxxxx" required>
+            <div class="err-msg">Nomor WhatsApp tidak valid (9–14 digit)</div>
+          </div>
+          <div class="field">
+            <label for="plat">Plat nomor</label>
+            <input id="plat" type="text" placeholder="DP 1234 AB" required>
+            <div class="err-msg">Plat nomor wajib diisi.</div>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="motor">Jenis motor</label>
+            <input id="motor" type="text" placeholder="Honda Beat 2020" required>
+            <div class="err-msg">Jenis motor wajib diisi.</div>
+          </div>
+          <div class="field">
+            <label for="layananPilih">Layanan</label>
+            <select id="layananPilih" required></select>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="tgl">Tanggal</label>
+            <input id="tgl" type="date" required>
+            <div class="err-msg">Pilih tanggal booking.</div>
+          </div>
+          <div class="field">
+            <label for="jam">Jam</label>
+            <select id="jam" required></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="keluhan">Keluhan (opsional)</label>
+          <textarea id="keluhan" rows="3" placeholder="Contoh: mesin brebet saat tarikan awal"></textarea>
+        </div>
+        <button class="btn block" type="submit">Kirim Booking via WhatsApp</button>
+      </form>
+      <ul id="riwayat"></ul>
+    </div>
+
+    <div class="panel" id="estimasi">
+      <p class="eyebrow">Kalkulator</p>
+      <h3>Estimasi biaya servis</h3>
+      <p class="sub">Centang layanan yang dibutuhkan untuk melihat perkiraan biaya jasa.</p>
+      <div class="checks" id="checks"></div>
+      <div class="total"><span>Perkiraan total jasa</span><strong id="totalBiaya">Rp 0</strong></div>
+      <p class="note">Belum termasuk harga sparepart/oli. Biaya akhir dikonfirmasi montir setelah pengecekan.</p>
+    
+    </div>
+  </div>
+</section>
+
+<!-- STATUS + PENGINGAT -->
+<section id="status" style="background:#fff">
+  <div class="container two">
+    <div class="panel">
+      <p class="eyebrow">Cek status</p>
+      <h3>Pantau progres motor Anda</h3>
+      <p class="sub">Masukkan plat nomor. Untuk demo, coba: <b>DP 1234 AB</b>, <b>DP 5678 CD</b>, atau <b>DD 9012 EF</b>.</p>
+      <form id="formStatus" action="#status" method="get" novalidate>
+        <div class="field">
+          <label for="platCek">Plat nomor</label>
+          <input id="platCek" name="plat" type="text" placeholder="DP 1234 AB" autocomplete="off">
+          <div class="err-msg" id="errPlat">Plat nomor wajib diisi.</div>
+        </div>
+        <button class="btn block" type="submit">Cek Status</button>
+      </form>
+      <noscript><p class="note">Fitur ini membutuhkan JavaScript. Aktifkan JavaScript di browser Anda lalu muat ulang halaman.</p></noscript>
+      <div class="result" id="hasilStatus" hidden role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="panel" id="pengingat">
+      <p class="eyebrow">Pengingat</p>
+      <h3>Kapan ganti oli berikutnya?</h3>
+      <p class="sub">Hitung jadwal ganti oli berdasarkan jenis motor dan kilometer terakhir.</p>
+      <form id="formOli">
+        <div class="field">
+          <label for="tipe">Jenis motor</label>
+          <select id="tipe">
+            <option value="2000">Matic (±2.000 km)</option>
+            <option value="2500">Bebek / Underbone (±2.500 km)</option>
+            <option value="3000">Sport / Kopling (±3.000 km)</option>
+          </select>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="kmTerakhir">KM saat ganti oli terakhir</label>
+            <input id="kmTerakhir" type="number" min="0" placeholder="12500" required>
+          </div>
+          <div class="field">
+            <label for="kmSekarang">KM saat ini</label>
+            <input id="kmSekarang" type="number" min="0" placeholder="14200" required>
+          </div>
+        </div>
+        <button class="btn block" type="submit">Hitung</button>
+      </form>
+      <div class="result" id="hasilOli" hidden></div>
+    </div>
+  </div>
+</section>
+
+<li><a href="#antrean">Antrean</a></li>
+<section id="antrean">
+  <div class="container">
+    <p class="eyebrow">Jadwal booking</p>
+    <h2>Siapa saja yang sudah booking</h2>
+    <p class="sub">Nama dan plat nomor disamarkan demi privasi.</p>
+    <div class="tools">
+      <input type="date" id="antreanTgl" aria-label="Filter tanggal">
+      <select id="antreanStatus" aria-label="Filter status">
+        <option value="semua">Semua status</option>
+        <option value="0">Diterima</option>
+        <option value="1">Dicek montir</option>
+        <option value="2">Sedang dikerjakan</option>
+        <option value="3">Selesai / siap diambil</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Jadwal</th><th>Pelanggan</th><th>Plat</th><th>Layanan</th><th>Status</th></tr></thead>
+        <tbody id="antreanBody"></tbody>
+      </table>
+    </div>
+    <p class="note" id="antreanKosong" hidden>Belum ada booking.</p>
+  </div>
+</section>
+
+<!-- ULASAN PELANGGAN -->
+<section id="ulasan" style="background:#fff">
+  <div class="container">
+    <p class="eyebrow">Ulasan</p>
+    <h2>Kata pelanggan kami</h2>
+    <p class="sub" id="ulasanRata">Pengalaman pelanggan yang sudah servis di Bengkel Harapan Motor.</p>
+    <div class="cards" id="ulasanList"></div>
+
+    <div class="panel" style="margin-top:28px;max-width:560px">
+      <h3>Tulis ulasan Anda</h3>
+      <p class="sub">Ceritakan pengalaman servis Anda.</p>
+      <form id="formUlasan" novalidate>
+        <div class="field">
+          <label for="ulNama">Nama</label>
+          <input id="ulNama" type="text" placeholder="Nama Anda" maxlength="40">
+        </div>
+        <div class="field">
+          <label for="ulBintang">Penilaian</label>
+          <select id="ulBintang">
+            <option value="5">★★★★★ (Sangat puas)</option>
+            <option value="4">★★★★☆ (Puas)</option>
+            <option value="3">★★★☆☆ (Cukup)</option>
+            <option value="2">★★☆☆☆ (Kurang)</option>
+            <option value="1">★☆☆☆☆ (Buruk)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="ulIsi">Ulasan</label>
+          <textarea id="ulIsi" rows="3" maxlength="250" placeholder="Contoh: servis cepat dan harga sesuai"></textarea>
+        </div>
+        <div class="result err" id="ulMsg" hidden role="alert"></div>
+        <button class="btn block" type="submit" style="margin-top:12px">Kirim Ulasan</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:#fff">
+  <div class="container" style="max-width:820px">
+    <p class="eyebrow">FAQ</p>
+    <h2>Pertanyaan yang sering diajukan</h2>
+    <p class="sub">Jawaban singkat sebelum Anda datang ke bengkel.</p>
+    <details><summary>Apakah harus booking dulu?</summary><p>Tidak wajib, bisa datang langsung ke bengkel.</p></details>
+    <details><summary>Apakah ada garansi servis?</summary><p>ada minimial 1 minggu maksimal 1 bulan tergantung kerusakan motor.</p></details>
+    <details><summary>Bagaimana jika biaya melebihi estimasi?</summary><p>kita konsul ulang dengan pelanggan.</p></details>
+    <details><summary>Metode pembayaran apa yang diterima?</summary><p>bisa tunai, bisa transfer.</p></details>
+  
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section id="kontak">
+  <div class="container">
+    <p class="eyebrow">Hubungi kami</p>
+    <h2>Kontak &amp; lokasi</h2>
+    <p class="sub">Datang langsung atau hubungi lewat WhatsApp.</p>
+    <div class="contact">
+      <div class="panel">
+        <h3 style="margin-bottom:12px">Bengkel Harapan Rappang</h3>
+        <p>📍 Jl. Harapan, Maccorawalie, Kec.Panca Rijang, Kabupaten Sidenreng Rappang <small></small></p>
+        <p>📞 6281244781318</p>
+        <p>🕗 Setiap hari 08.00–17.00</p>
+        <p style="margin:16px 0 20px">Siap membantu perawatan rutin hingga perbaikan mesin.</p>
+        <a class="btn block" id="waKontak" target="_blank" rel="noopener">Chat WhatsApp</a>
+      </div>
+      <div class="map map-embed">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.8206141189344!2d119.81392697352304!3d-3.848651843792645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d95cbced20822c3%3A0xc82afcf1f1e25baa!2sHarapan%20motor%20rappang!5e0!3m2!1sid!2sid!4v1793509010922!5m2!1sid!2sid" title="Lokasi Bengkel Harapan Motor di Google Maps" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN (tersembunyi: dibuka lewat tautan "Login Admin" di footer atau alamat #admin) -->
+<section id="admin" style="display:none;background:#fff">
+  <div class="container">
+    <p class="eyebrow">Area pengelola</p>
+    <h2>Admin Bengkel</h2>
+
+    <!-- Form login -->
+    <div class="panel adm-login" id="adminLogin" style="margin-top:20px">
+      <h3>Login Admin</h3>
+      <p class="sub">Khusus pemilik / montir bengkel.</p>
+      <form id="formAdmin" novalidate autocomplete="off">
+        <div class="field">
+          <label for="admUser">Username</label>
+          <input id="admUser" type="text" autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="admPass">Password</label>
+          <input id="admPass" type="password" autocomplete="current-password">
+        </div>
+        <label class="adm-show"><input type="checkbox" id="admShow"> Tampilkan password</label>
+        <div class="result err" id="admErr" hidden role="alert"></div>
+        <button class="btn block" type="submit" style="margin-top:14px">Masuk</button>
+      </form>
+      <p class="note"><a href="#beranda" id="admBatal" style="text-decoration:underline">← Kembali ke beranda</a></p>
+    </div>
+
+    <!-- Dashboard (tampil setelah login) -->
+    <div id="adminPanel" hidden>
+      <div class="adm-top">
+        <p>Masuk sebagai <b id="admNama"></b></p>
+        <button class="btn sm outline" id="admKeluar" type="button">Keluar</button>
+      </div>
+      <div class="result warn adm-info" style="margin-top:0">
+        <b>Mode demo:</b> data tersimpan di browser ini (localStorage). Booking yang dikirim pelanggan dari HP mereka masuk lewat WhatsApp,
+        bukan otomatis ke dashboard ini; catat dengan <i>Tambah booking manual</i>. Sinkronisasi antar perangkat butuh database/server.
+      </div>
+
+      <div class="adm-stats" id="admStats"></div>
+
+      <div class="adm-tabs">
+        <button type="button" data-tab="booking" class="on">Booking &amp; Status</button>
+        <button type="button" data-tab="layanan">Layanan &amp; Harga</button>
+      </div>
+
+      <!-- Tab: Booking -->
+      <div id="tabBooking">
+        <div class="adm-tools">
+          <input type="search" id="admCari" placeholder="Cari nama / plat / motor / layanan…" aria-label="Cari booking">
+          <select id="admFilter" aria-label="Filter status">
+            <option value="semua">Semua status</option>
+            <option value="0">Diterima</option>
+            <option value="1">Dicek montir</option>
+            <option value="2">Sedang dikerjakan</option>
+            <option value="3">Selesai / siap diambil</option>
+          </select>
+          <button class="btn sm" id="admCsv" type="button">Unduh CSV</button>
+        </div>
+        <div class="table-wrap">
+          <table class="adm-table">
+            <thead><tr><th>Jadwal</th><th>Pelanggan</th><th>Motor</th><th>Layanan</th><th>Status</th><th>Aksi</th></tr></thead>
+            <tbody id="admBody"></tbody>
+          </table>
+        </div>
+        <p class="note" id="admKosong" hidden>Belum ada data yang cocok. Tambahkan lewat form di bawah atau tunggu booking dari form pelanggan di perangkat ini.</p>
+        <p class="note"><button class="btn sm outline" id="admHapusSemua" type="button">Hapus semua booking</button></p>
+
+        <details class="adm-add">
+          <summary>+ Tambah booking manual (dari WhatsApp / datang langsung)</summary>
+          <form id="formManual" novalidate>
+            <div class="adm-form">
+              <div><label for="mNama">Nama</label><input id="mNama" type="text" placeholder="Nama pelanggan"></div>
+              <div><label for="mHp">No. WhatsApp (opsional)</label><input id="mHp" type="tel" placeholder="08xxxxxxxxxx"></div>
+              <div><label for="mPlat">Plat nomor</label><input id="mPlat" type="text" placeholder="DP 1234 AB"></div>
+              <div><label for="mMotor">Jenis motor</label><input id="mMotor" type="text" placeholder="Honda Beat 2020"></div>
+              <div><label for="mLayanan">Layanan</label><select id="mLayanan"></select></div>
+              <div><label for="mTgl">Tanggal</label><input id="mTgl" type="date"></div>
+              <div><label for="mJam">Jam</label><select id="mJam"></select></div>
+              <div class="full"><label for="mKeluhan">Keluhan (opsional)</label><input id="mKeluhan" type="text" placeholder="Contoh: mesin brebet"></div>
+            </div>
+            <div class="result" id="mMsg" hidden role="status"></div>
+            <button class="btn" type="submit" style="margin-top:14px">Simpan booking</button>
+          </form>
+        </details>
+      </div>
+
+      <!-- Tab: Layanan -->
+      <div id="tabLayanan" hidden>
+        <p class="note" style="margin:0 0 12px">Ubah nama, kategori, harga, atau durasi layanan. Setelah disimpan, daftar layanan, kalkulator estimasi, dan dropdown booking di halaman utama ikut berubah (di browser ini).</p>
+        <div class="table-wrap">
+          <table class="adm-table" style="min-width:760px">
+            <thead><tr><th>Nama layanan</th><th>Kategori</th><th>Harga jasa (Rp)</th><th>Durasi</th><th></th></tr></thead>
+            <tbody id="lyBody"></tbody>
+          </table>
+        </div>
+        <div class="adm-actions">
+          <button class="btn sm outline" id="lyTambah" type="button">+ Tambah layanan</button>
+          <button class="btn sm" id="lySimpan" type="button">Simpan perubahan</button>
+          <button class="btn sm outline" id="lyReset" type="button">Kembalikan ke bawaan</button>
+        </div>
+        <div class="result" id="lyMsg" hidden role="status"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">© <span id="tahun"></span> Bengkel Harapan Motor</div>
+</footer>
+
+<a class="wa-float" id="waFloat" target="_blank" rel="noopener">💬 Chat WA</a>
+
+<script src="script.js"></script>
+</body>
+</html>
